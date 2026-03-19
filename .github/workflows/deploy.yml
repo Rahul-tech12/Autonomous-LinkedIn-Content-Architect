@@ -1,0 +1,35 @@
+name: CI-CD
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+
+    - name: Show files
+      run: ls -R
+
+
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: temurin
+        java-version: 21
+
+
+    - name: Build Backend
+      working-directory: ./Backend
+      run: mvn clean package -DskipTests
+
+
+    - name: Build Docker
+      run: docker compose build
