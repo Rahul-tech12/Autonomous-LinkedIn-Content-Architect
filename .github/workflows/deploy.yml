@@ -11,12 +11,8 @@ jobs:
 
     steps:
 
-    - name: Checkout code
+    - name: Checkout
       uses: actions/checkout@v3
-
-
-    - name: Show files
-      run: ls -R
 
 
     - name: Setup Java
@@ -31,5 +27,5 @@ jobs:
       run: mvn clean package -DskipTests
 
 
-    - name: Build Docker
+    - name: Docker Build
       run: docker compose build
