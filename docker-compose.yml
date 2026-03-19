@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+
+  Backend:
+    build: C:\Users\Admin\Desktop\Rahul\Personal Labs\Backend
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build: C:\Users\Admin\Desktop\Rahul\Personal Labs\frontend
+    ports:
+      - "80:80"
+
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test
+    ports:
+      - "3306:3306"

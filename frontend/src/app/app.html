@@ -1,0 +1,133 @@
+<div class="container">
+  <h1>🚀 LinkedIn Post Generator</h1>
+
+  <div class="form-group">
+    <label>Topic</label>
+    <input [(ngModel)]="topic" placeholder="e.g. Why I quit my 6-figure job" />
+  </div>
+
+  <div class="form-group">
+    <label>Target Audience</label>
+    <input [(ngModel)]="targetAudience" placeholder="e.g. Senior engineers, startup founders" />
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Tone</label>
+      <select [(ngModel)]="tone">
+        <option>Professional</option>
+        <option>Storytelling</option>
+        <option>Bold</option>
+        <option>Educational</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Goal</label>
+      <select [(ngModel)]="goal">
+        <option>Engagement</option>
+        <option>Authority</option>
+        <option>Leads</option>
+        <option>Hiring</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Length</label>
+      <select [(ngModel)]="length">
+        <option>Short</option>
+        <option>Medium</option>
+        <option>Long</option>
+      </select>
+    </div>
+  </div>
+
+  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+  <button (click)="generatePost()" [disabled]="isLoading || isStreaming">
+  <span *ngIf="!isLoading && !isStreaming">⚡ Generate Post</span>
+  <span *ngIf="isLoading || isStreaming">Generating...</span>
+</button>
+
+<!-- ✅ Typewriter loader — shows while waiting for first token -->
+<div class="typewriter-loader" *ngIf="isLoading">
+  <span class="tw-text" id="tw-text"></span>
+  <span class="tw-cursor">|</span>
+</div>
+
+<!-- Result -->
+<div class="result" *ngIf="generatedPost">
+  <div class="result-header">
+    <h2>Generated Post</h2>
+    <button class="copy-btn" (click)="copyToClipboard()" [disabled]="isStreaming">
+      {{ copySuccess ? '✅ Copied!' : '📋 Copy' }}
+    </button>
+  </div>
+  <pre class="post-output">{{ generatedPost }}<span class="cursor" *ngIf="isStreaming">▌</span></pre>
+</div>
+
+<!-- ✅ Shows when post is generated AND saved with ID -->
+<div class="schedule-actions" 
+     *ngIf="generatedPost && lastGeneratedPostId">
+  <button class="schedule-btn" (click)="openScheduler()">
+    🕐 Schedule Post
+  </button>
+</div>
+
+<!-- Scheduler Panel -->
+<div class="scheduler-panel" *ngIf="showScheduler">
+  <h3>Schedule Your Post</h3>
+  <p class="scheduler-hint">Your post will be published to LinkedIn automatically.</p>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Date</label>
+      <input type="date" [(ngModel)]="scheduledDate" [min]="today" />
+    </div>
+    <div class="form-group">
+      <label>Time</label>
+      <input type="time" [(ngModel)]="scheduledTime" />
+    </div>
+  </div>
+
+  <div class="scheduler-actions">
+    <button (click)="schedulePost()">✅ Confirm Schedule</button>
+    <button class="cancel-btn" (click)="showScheduler = false">Cancel</button>
+  </div>
+</div>
+
+<!-- Scheduled Posts List -->
+<div class="scheduled-section" *ngIf="scheduledPosts.length > 0">
+  <h3>⏰ Scheduled Posts</h3>
+  <div class="scheduled-card" *ngFor="let post of scheduledPosts">
+    <div class="scheduled-meta">
+      <span class="badge">SCHEDULED</span>
+      <span class="date">{{ post.scheduledAt | date:'dd MMM yyyy, hh:mm a' }}</span>
+    </div>
+    <p>{{ post.content | slice:0:100 }}...</p>
+    <button class="cancel-schedule-btn" (click)="cancelSchedule(post.id)">
+      ✕ Cancel
+    </button>
+  </div>
+</div>
+
+  <div class="history-section">
+    <button class="toggle-btn" (click)="showHistory = !showHistory">
+  <span style="flex:1;height:1px;background:linear-gradient(90deg,transparent,#e8dfc8)"></span>
+  {{ showHistory ? '▲ Hide History' : '✦ View Post History' }}
+  <span style="flex:1;height:1px;background:linear-gradient(90deg,#e8dfc8,transparent)"></span>
+</button>
+
+    <div *ngIf="showHistory">
+      <div class="history-card" *ngFor="let post of history">
+        <div class="history-meta">
+          <span class="badge">{{ post.tone }}</span>
+          <span class="badge">{{ post.goal }}</span>
+          <span class="date">{{ post.createdAt | date:'MMM d, y' }}</span>
+        </div>
+        <strong>{{ post.title }}</strong>
+        <p>{{ post.content | slice:0:150 }}...</p>
+      </div>
+    </div>
+  </div>
+</div>

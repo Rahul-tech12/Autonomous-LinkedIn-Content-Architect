@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  font-family: 'Outfit', sans-serif;
+  background: #f5f0e8;
+  color: #1a1208;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 65% 50% at 10% 0%,  rgba(196,146,42,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 45% at 90% 100%, rgba(196,146,42,0.05) 0%, transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}

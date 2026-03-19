@@ -1,0 +1,803 @@
+
+/* ─────────────────────────────────────────
+   Design Tokens
+───────────────────────────────────────── */
+:root {
+  --cream:        #f5f0e8;
+  --cream-deep:   #ede8dc;
+  --cream-light:  #faf8f4;
+  --surface:      #ffffff;
+  --ink:          #1a1208;
+  --ink-soft:     #4a3c28;
+  --ink-muted:    #8a7a60;
+  --gold:         #c4922a;
+  --gold-light:   rgba(196, 146, 42, 0.12);
+  --gold-glow:    rgba(196, 146, 42, 0.25);
+  --gold-border:  rgba(196, 146, 42, 0.3);
+  --border:       #e8dfc8;
+  --border-focus: rgba(196, 146, 42, 0.5);
+  --shadow-sm:    0 2px 12px rgba(26, 18, 8, 0.07);
+  --shadow-md:    0 6px 32px rgba(26, 18, 8, 0.1);
+  --shadow-lg:    0 16px 56px rgba(26, 18, 8, 0.13);
+  --r:            12px;
+  --r-sm:         8px;
+}
+
+/* ─────────────────────────────────────────
+   Reset & Base
+───────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+
+
+/* ─────────────────────────────────────────
+   Container
+───────────────────────────────────────── */
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 60px 24px 96px;
+}
+
+/* ─────────────────────────────────────────
+   h1
+───────────────────────────────────────── */
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  text-align: center;
+  margin-bottom: 36px;
+  animation: fadeDown 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+h1::before {
+  content: '✦  AI Content Studio  ✦';
+  display: block;
+  font-family: 'Outfit', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+h1::after {
+  content: '';
+  display: block;
+  width: 56px;
+  height: 2.5px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 16px auto 0;
+  border-radius: 2px;
+}
+
+/* ─────────────────────────────────────────
+   h2 inside result header
+───────────────────────────────────────── */
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+}
+
+/* ─────────────────────────────────────────
+   Form Groups
+───────────────────────────────────────── */
+.form-group {
+  margin-bottom: 18px;
+  animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.form-group:nth-child(1) { animation-delay: 0.08s; }
+.form-group:nth-child(2) { animation-delay: 0.14s; }
+
+.form-group label {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 7px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14.5px;
+  font-weight: 400;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 12px 16px;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  box-shadow: var(--shadow-sm);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--border-focus);
+  background: var(--cream-light);
+  box-shadow: 0 0 0 3px var(--gold-light), var(--shadow-sm);
+}
+
+.form-group input::placeholder {
+  color: #b8a88a;
+  font-weight: 300;
+}
+
+.form-group select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%23c4922a' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 38px;
+  cursor: pointer;
+}
+
+/* ─────────────────────────────────────────
+   Form Row
+───────────────────────────────────────── */
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+  animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.2s;
+}
+
+@media (max-width: 540px) {
+  .form-row { grid-template-columns: 1fr; gap: 14px; }
+  .container { padding: 40px 18px 72px; }
+  h1 { font-size: 2rem; }
+}
+
+/* ─────────────────────────────────────────
+   Error
+───────────────────────────────────────── */
+.error {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  background: #fef5f3;
+  border: 1.5px solid rgba(192, 70, 50, 0.2);
+  color: #b83a2a;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 11px 16px;
+  border-radius: var(--r-sm);
+  margin-bottom: 18px;
+  animation: fadeUp 0.3s ease both;
+  line-height: 1.5;
+}
+
+/* ─────────────────────────────────────────
+   Generate Button
+───────────────────────────────────────── */
+button:not(.copy-btn):not(.toggle-btn) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  padding: 15px 28px;
+  background: var(--ink);
+  color: var(--cream-light);
+  border: none;
+  border-radius: var(--r-sm);
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.22s, transform 0.15s, box-shadow 0.22s;
+  animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.26s;
+}
+
+/* Sheen sweep */
+button:not(.copy-btn):not(.toggle-btn)::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent);
+  transition: left 0.5s ease;
+}
+
+button:not(.copy-btn):not(.toggle-btn):hover:not([disabled])::before {
+  left: 150%;
+}
+
+/* Gold star accent right side */
+button:not(.copy-btn):not(.toggle-btn)::after {
+  content: '✦';
+  position: absolute;
+  right: 20px;
+  font-size: 11px;
+  color: var(--gold);
+  opacity: 0.6;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+button:not(.copy-btn):not(.toggle-btn):hover:not([disabled]) {
+  background: #2d2010;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(26,18,8,0.22), 0 0 0 1px var(--gold-border);
+}
+
+button:not(.copy-btn):not(.toggle-btn):hover:not([disabled])::after {
+  opacity: 1;
+  transform: rotate(90deg);
+}
+
+button:not(.copy-btn):not(.toggle-btn):active:not([disabled]) {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+button[disabled],
+button:not(.copy-btn):not(.toggle-btn)[disabled] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* ─────────────────────────────────────────
+   Result Box
+───────────────────────────────────────── */
+.result {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  margin-top: 28px;
+  animation: fadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Gold top stripe */
+.result::before {
+  content: '';
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold) 25%, #e8b84b 55%, transparent 100%);
+}
+
+.result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 22px;
+  background: var(--cream-light);
+  border-bottom: 1.5px solid var(--border);
+}
+
+/* Copy button — pill style, overrides main button */
+.copy-btn {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px !important;
+  border: 1.5px solid var(--border) !important;
+  border-radius: 100px !important;
+  background: var(--surface) !important;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: var(--ink-muted) !important;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  transition: all 0.18s ease !important;
+  width: auto !important;
+  animation: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.copy-btn::before,
+.copy-btn::after { display: none !important; }
+
+.copy-btn:hover {
+  border-color: var(--gold) !important;
+  color: var(--gold) !important;
+  background: var(--gold-light) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.result pre {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14.5px;
+  font-weight: 400;
+  line-height: 1.85;
+  color: var(--ink-soft);
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding: 28px 26px;
+}
+
+/* ─────────────────────────────────────────
+   History Section
+───────────────────────────────────────── */
+.history-section {
+  margin-top: 44px;
+  animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.1s;
+}
+
+/* Toggle button */
+.toggle-btn {
+  display: flex !important;
+  align-items: center;
+  gap: 14px;
+  width: 100% !important;
+  background: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted) !important;
+  cursor: pointer;
+  padding: 0 !important;
+  margin-bottom: 20px;
+  transition: color 0.18s ease !important;
+  box-shadow: none !important;
+  animation: none !important;
+  transform: none !important;
+}
+
+.toggle-btn::before,
+.toggle-btn::after { display: none !important; }
+
+.toggle-btn:hover {
+  color: var(--gold) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Flanking decorative lines — added via spans in HTML */
+/* Use this trick: wrap text in a span if needed, or rely on flex gap */
+/* The text itself is centered with the two lines on either side */
+
+/* ─────────────────────────────────────────
+   History Cards
+───────────────────────────────────────── */
+.history-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 18px 22px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: border-color 0.18s, transform 0.18s, box-shadow 0.18s;
+  animation: fadeUp 0.45s ease both;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Left gold bar on hover */
+.history-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--gold);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.22s ease;
+  border-radius: 0 2px 2px 0;
+}
+
+.history-card:hover {
+  border-color: var(--gold-border);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.history-card:hover::before {
+  transform: scaleY(1);
+}
+
+.history-meta {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+/* Tone badge */
+.badge {
+  font-family: 'Outfit', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 100px;
+  background: var(--gold-light);
+  color: var(--gold);
+  border: 1px solid var(--gold-border);
+}
+
+/* Goal badge — second badge gets dark ink tint */
+.history-meta .badge + .badge {
+  background: rgba(26, 18, 8, 0.06);
+  color: var(--ink-soft);
+  border-color: rgba(26, 18, 8, 0.12);
+}
+
+.date {
+  font-size: 11px;
+  color: var(--ink-muted);
+  font-weight: 300;
+  margin-left: auto;
+  letter-spacing: 0.02em;
+}
+
+.history-card strong {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: -0.01em;
+}
+
+.history-card p {
+  font-size: 13px;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ─────────────────────────────────────────
+   Scrollbar
+───────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #c8b89a; }
+
+/* ─────────────────────────────────────────
+   Animations
+───────────────────────────────────────── */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Blinking cursor while streaming */
+.cursor {
+  display: inline-block;
+  animation: blink 0.7s step-end infinite;
+  color: var(--gold);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.post-output {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: var(--ink-soft);
+  white-space: pre-wrap;    /* ✅ preserves \n and wraps long lines */
+  word-break: break-word;
+  padding: 28px 26px;
+  margin: 0;
+}
+/* ── Typewriter Loader ── */
+.typewriter-loader {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin: 20px 0 8px;
+  border-left: 2px solid var(--gold);
+  padding-left: 14px;
+  min-height: 24px;
+}
+
+.tw-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.tw-cursor {
+  display: inline-block;
+  font-size: 16px;
+  color: var(--gold);
+  animation: blink 0.7s step-end infinite;
+  line-height: 1;
+  margin-left: 1px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.schedule-actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+}
+
+.schedule-btn {
+  width: auto !important;
+  padding: 10px 20px !important;
+  background: var(--gold-light) !important;
+  color: var(--gold) !important;
+  border: 1.5px solid var(--gold-border) !important;
+  font-size: 13px !important;
+  animation: none !important;
+}
+
+.schedule-btn:hover {
+  background: var(--gold) !important;
+  color: white !important;
+  transform: none !important;
+}
+
+.scheduler-panel {
+  background: var(--surface);
+  border: 1.5px solid var(--gold-border);
+  border-radius: var(--r);
+  padding: 24px;
+  margin-top: 20px;
+  animation: fadeUp 0.3s ease both;
+}
+
+.scheduler-panel h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.scheduler-hint {
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-bottom: 18px;
+}
+
+.scheduler-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.cancel-btn {
+  background: transparent !important;
+  color: var(--ink-muted) !important;
+  border: 1.5px solid var(--border) !important;
+  width: auto !important;
+  padding: 10px 20px !important;
+  animation: none !important;
+}
+
+.scheduled-section {
+  margin-top: 32px;
+}
+
+.scheduled-section h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  margin-bottom: 14px;
+  color: var(--ink);
+}
+
+.scheduled-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 16px 20px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.cancel-schedule-btn {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: auto !important;
+  padding: 5px 12px !important;
+  font-size: 12px !important;
+  background: transparent !important;
+  color: #b83a2a !important;
+  border: 1px solid rgba(192,70,50,0.3) !important;
+  border-radius: 100px !important;
+  animation: none !important;
+}
+
+
+
+/* ── Top Bar ── */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.top-bar h1 { margin-bottom: 0; }
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.setup-btn {
+  width: auto !important;
+  padding: 9px 18px !important;
+  font-size: 13px !important;
+  animation: none !important;
+}
+
+.auto-badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 100px;
+  cursor: pointer;
+  border: 1.5px solid var(--border);
+  color: var(--ink-muted);
+  transition: all 0.2s;
+}
+
+.auto-badge.active {
+  background: var(--gold-light);
+  color: var(--gold);
+  border-color: var(--gold-border);
+}
+
+/* ── Modal ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 18, 8, 0.5);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal {
+  background: var(--surface);
+  border-radius: var(--r);
+  padding: 32px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: fadeUp 0.3s ease both;
+}
+
+.modal h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.modal-hint {
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* ── Day Pills ── */
+.day-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.day-pill {
+  padding: 6px 14px;
+  border-radius: 100px;
+  border: 1.5px solid var(--border);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--ink-muted);
+  transition: all 0.18s;
+  user-select: none;
+}
+
+.day-pill.active {
+  background: var(--gold-light);
+  color: var(--gold);
+  border-color: var(--gold-border);
+}
+
+/* ── LinkedIn Step ── */
+.linkedin-step { text-align: center; }
+
+.linkedin-icon {
+  width: 56px;
+  height: 56px;
+  background: #0077b5;
+  color: white;
+  border-radius: 12px;
+  font-size: 24px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.permission-list {
+  background: var(--cream-light);
+  border-radius: var(--r-sm);
+  padding: 16px;
+  margin: 16px 0;
+  text-align: left;
+}
+
+.permission-item {
+  font-size: 13px;
+  color: var(--ink-soft);
+  padding: 4px 0;
+}
+
+.linkedin-btn {
+  width: 100% !important;
+  background: #0077b5 !important;
+  color: white !important;
+  border: none !important;
+  animation: none !important;
+}
+
+.linkedin-btn:hover {
+  background: #005e8b !important;
+  transform: none !important;
+}
