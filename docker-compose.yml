@@ -1,12 +1,15 @@
+
 services:
 
-  Backend:
-    build: C:\Users\Admin\Desktop\Rahul\Personal Labs\Backend
+  backend:
+    image: backend-app
+    build: ./Backend
     ports:
       - "8080:8080"
 
   frontend:
-    build: C:\Users\Admin\Desktop\Rahul\Personal Labs\frontend
+    image: frontend-app
+    build: ./frontend
     ports:
       - "80:80"
 
