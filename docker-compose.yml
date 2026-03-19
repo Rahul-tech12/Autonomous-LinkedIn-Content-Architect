@@ -3,13 +3,17 @@ services:
 
   backend:
     image: backend-app
-    build: ./Backend
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
 
   frontend:
     image: frontend-app
-    build: ./frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
       - "80:80"
 
@@ -18,5 +22,3 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: test
-    ports:
-      - "3306:3306"
