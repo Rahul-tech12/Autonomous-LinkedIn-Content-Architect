@@ -3,8 +3,8 @@
 An AI-powered full-stack application that helps you generate, refine, schedule, and publish LinkedIn posts.
 
 It combines:
-- **Angular frontend** for interactive post generation and scheduling
-- **Spring Boot backend** for AI orchestration, persistence, scheduling, and LinkedIn integration
+- **Angular Frontend** for interactive post generation and scheduling
+- **Spring Boot Backend** for AI orchestration, persistence, scheduling, and LinkedIn integration
 - **Gemini (Spring AI)** for content generation and post enhancement
 - **MySQL** for post history and scheduling state
 
@@ -33,7 +33,7 @@ Autonomous-LinkedIn-Content-Architect/
 │   └── pom.xml
 ├── frontend/
 │   ├── src/app/
-│   │   ├── app.ts               # Main UI logic
+│   │   ├── app.ts               # Main UI logic (standalone Angular root component)
 │   │   └── services/post.service.ts
 │   ├── package.json
 │   └── nginx.conf
